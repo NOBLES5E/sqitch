@@ -4,9 +4,9 @@
 name: 🧅 Perl
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, "**perl**"]
   pull_request:
-    branches: [main, develop]
+    branches: [main, develop, "**perl**"]
 jobs:
   Perl:
     strategy:
@@ -16,6 +16,7 @@ jobs:
         exclude:
           - { os: [🪟, windows], perl: '5.12' } # https://github.com/shogo82148/actions-setup-perl/issues/876
           - { os: [🪟, windows], perl: '5.14' } # https://github.com/shogo82148/actions-setup-perl/issues/881
+          - { os: [🍎, macos], perl: '5.12' } # https://github.com/shogo82148/actions-setup-perl/issues/1549
     name: 🧅 Perl ${{ matrix.perl }} on ${{ matrix.os[0] }} ${{ matrix.os[1] }}
     runs-on: ${{ matrix.os[1] }}-latest
     steps:
