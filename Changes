@@ -50,6 +50,9 @@ Revision history for Perl extension App::Sqitch
        (#668)!
      - Fixed Snowflake and MySQL to properly raise errors on session query
        failures immediately after connection.
+     - Set all text column collations to "POSIX" on Postgres 9.1 and higher.
+       and Yugabyte 2.9 and higher. Does not apply to existing registries,
+       only new ones. Thanks to @datafoo for the suggestion (#763)!
 
 1.3.1  2022-10-01T18:49:30Z
      - Fixed a bug introduced in v1.3.0 where the Postgres engine would
