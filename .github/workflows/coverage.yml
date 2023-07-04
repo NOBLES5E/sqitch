@@ -23,11 +23,11 @@ jobs:
         env:
           ISC_PASSWORD: nix
           FIREBIRD_DATABASE: sqitchtest.db
-      # mysql:
-      #   image: mysql:latest
-      #   env: { MYSQL_ALLOW_EMPTY_PASSWORD: yes }
-      #   ports: [ 3306 ]
-      #   options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+      mysql:
+        image: mysql:latest
+        env: { MYSQL_ALLOW_EMPTY_PASSWORD: yes }
+        ports: [ 3306 ]
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
       # oracle:
       #   image: gvenzl/oracle-xe:latest
       #   ports: [ 1521 ]
@@ -68,7 +68,7 @@ jobs:
           .github/ubuntu/pg.sh
           .github/ubuntu/vertica.sh
           .github/ubuntu/firebird.sh
-        #   .github/ubuntu/mysql.sh
+          .github/ubuntu/mysql.sh
         #   .github/ubuntu/oracle.sh
         #   .github/ubuntu/snowflake.sh
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends --cpanfile dist/cpanfile
