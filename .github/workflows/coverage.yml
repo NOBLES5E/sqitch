@@ -64,9 +64,9 @@ jobs:
           SKIP_DEPENDS: true
         run: |
           .github/ubuntu/all-apt-prereqs.sh
+          .github/ubuntu/exasol.sh
           .github/ubuntu/pg.sh
           .github/ubuntu/vertica.sh
-          .github/ubuntu/exasol.sh
         #   .github/ubuntu/firebird.sh
         #   .github/ubuntu/mysql.sh
         #   .github/ubuntu/oracle.sh
