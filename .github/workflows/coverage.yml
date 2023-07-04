@@ -28,18 +28,18 @@ jobs:
         env: { MYSQL_ALLOW_EMPTY_PASSWORD: yes }
         ports: [ 3306 ]
         options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
-      # oracle:
-      #   image: gvenzl/oracle-xe:latest
-      #   ports: [ 1521 ]
-      #   env:
-      #     ORACLE_PASSWORD: oracle
-      #     APP_USER: sqitchtest
-      #     APP_USER_PASSWORD: sqitchtest
-      #   options: >-
-      #     --health-cmd healthcheck.sh
-      #     --health-interval 20s
-      #     --health-timeout 10s
-      #     --health-retries 10
+      oracle:
+        image: gvenzl/oracle-xe:latest
+        ports: [ 1521 ]
+        env:
+          ORACLE_PASSWORD: oracle
+          APP_USER: sqitchtest
+          APP_USER_PASSWORD: sqitchtest
+        options: >-
+          --health-cmd healthcheck.sh
+          --health-interval 20s
+          --health-timeout 10s
+          --health-retries 10
       vertica:
         image: vertica/vertica-ce:latest
         ports: [ 5433 ]
@@ -69,7 +69,7 @@ jobs:
           .github/ubuntu/vertica.sh
           .github/ubuntu/firebird.sh
           .github/ubuntu/mysql.sh
-        #   .github/ubuntu/oracle.sh
+          .github/ubuntu/oracle.sh
         #   .github/ubuntu/snowflake.sh
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends --cpanfile dist/cpanfile
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC Devel::Cover
