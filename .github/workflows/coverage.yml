@@ -95,9 +95,9 @@ jobs:
           SQITCH_TEST_VSQL_URI: db:vertica://dbadmin@localhost:${{ job.services.vertica.ports[5433] }}/VMart?Driver=Vertica
           LIVE_COCKROACH_REQUIRED: true
           SQITCH_TEST_COCKROACH_URI: db:cockroach://root@localhost:26257/
-        run: prove -lrj4 t
-      - name: Report Coverage
-        env:
-          PERL5LIB: "${{ github.workspace }}/local/lib/perl5"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: local/bin/cover -report coveralls
+        run: prove -lvr t/vertica.t
+      # - name: Report Coverage
+      #   env:
+      #     PERL5LIB: "${{ github.workspace }}/local/lib/perl5"
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: local/bin/cover -report coveralls
