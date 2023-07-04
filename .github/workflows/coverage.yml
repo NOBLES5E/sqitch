@@ -56,9 +56,9 @@ jobs:
         with:
           path: local
           key: perl-${{ steps.perl.outputs.perl-hash }}
-      # - name: Install SQLite
-      #   env: { PERL5LIB: "${{ github.workspace }}/local/lib/perl5" }
-      #   run: .github/ubuntu/sqlite.sh
+      - name: Install SQLite
+        env: { PERL5LIB: "${{ github.workspace }}/local/lib/perl5" }
+        run: .github/ubuntu/sqlite.sh
       - name: Setup Clients
         env:
           SKIP_DEPENDS: true
