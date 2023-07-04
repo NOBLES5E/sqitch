@@ -73,7 +73,7 @@ jobs:
         #   .github/ubuntu/snowflake.sh
         #   .github/ubuntu/vertica.sh
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends --cpanfile dist/cpanfile
-      - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC
+      - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC Devel::Cover
       - name: Run Tests
         env:
           PERL5LIB: "${{ github.workspace }}/local/lib/perl5"
