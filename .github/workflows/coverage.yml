@@ -17,12 +17,12 @@ jobs:
         image: exasol/docker-db:latest
         ports: [ 8563 ]
         options: --privileged
-      # firebird:
-      #   image: jacobalberty/firebird:latest
-      #   ports: [ 3050 ]
-      #   env:
-      #     ISC_PASSWORD: nix
-      #     FIREBIRD_DATABASE: sqitchtest.db
+      firebird:
+        image: jacobalberty/firebird:latest
+        ports: [ 3050 ]
+        env:
+          ISC_PASSWORD: nix
+          FIREBIRD_DATABASE: sqitchtest.db
       # mysql:
       #   image: mysql:latest
       #   env: { MYSQL_ALLOW_EMPTY_PASSWORD: yes }
@@ -67,7 +67,7 @@ jobs:
           .github/ubuntu/exasol.sh
           .github/ubuntu/pg.sh
           .github/ubuntu/vertica.sh
-        #   .github/ubuntu/firebird.sh
+          .github/ubuntu/firebird.sh
         #   .github/ubuntu/mysql.sh
         #   .github/ubuntu/oracle.sh
         #   .github/ubuntu/snowflake.sh
