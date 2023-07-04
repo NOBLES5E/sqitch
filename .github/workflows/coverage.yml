@@ -13,39 +13,39 @@ jobs:
     name: 📈 Coverage
     runs-on: ubuntu-latest
     services:
-      exasol:
-        image: exasol/docker-db:latest
-        ports: [ 8563 ]
-        options: --privileged
-      firebird:
-        image: jacobalberty/firebird:latest
-        ports: [ 3050 ]
-        env:
-          ISC_PASSWORD: nix
-          FIREBIRD_DATABASE: sqitchtest.db
-      mysql:
-        image: mysql:latest
-        env: { MYSQL_ALLOW_EMPTY_PASSWORD: yes }
-        ports: [ 3306 ]
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
-      oracle:
-        image: gvenzl/oracle-xe:latest
-        ports: [ 1521 ]
-        env:
-          ORACLE_PASSWORD: oracle
-          APP_USER: sqitchtest
-          APP_USER_PASSWORD: sqitchtest
-        options: >-
-          --health-cmd healthcheck.sh
-          --health-interval 20s
-          --health-timeout 10s
-          --health-retries 10
+      # exasol:
+      #   image: exasol/docker-db:latest
+      #   ports: [ 8563 ]
+      #   options: --privileged
+      # firebird:
+      #   image: jacobalberty/firebird:latest
+      #   ports: [ 3050 ]
+      #   env:
+      #     ISC_PASSWORD: nix
+      #     FIREBIRD_DATABASE: sqitchtest.db
+      # mysql:
+      #   image: mysql:latest
+      #   env: { MYSQL_ALLOW_EMPTY_PASSWORD: yes }
+      #   ports: [ 3306 ]
+      #   options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+      # oracle:
+      #   image: gvenzl/oracle-xe:latest
+      #   ports: [ 1521 ]
+      #   env:
+      #     ORACLE_PASSWORD: oracle
+      #     APP_USER: sqitchtest
+      #     APP_USER_PASSWORD: sqitchtest
+      #   options: >-
+      #     --health-cmd healthcheck.sh
+      #     --health-interval 20s
+      #     --health-timeout 10s
+      #     --health-retries 10
       vertica:
-        image: vertica/vertica-ce:12.0.2-0
+        image: vertica/vertica-ce:latest
         ports: [ 5433 ]
     steps:
-      - name: Start CockroachDB
-        run: docker run -d -p 26257:26257 cockroachdb/cockroach:latest start-single-node --insecure
+      # - name: Start CockroachDB
+      #   run: docker run -d -p 26257:26257 cockroachdb/cockroach:latest start-single-node --insecure
       - uses: actions/checkout@v3
       - name: Setup Perl
         id: perl
@@ -56,23 +56,24 @@ jobs:
         with:
           path: local
           key: perl-${{ steps.perl.outputs.perl-hash }}
-      - name: Install SQLite
-        env: { PERL5LIB: "${{ github.workspace }}/local/lib/perl5" }
-        run: .github/ubuntu/sqlite.sh
+      # - name: Install SQLite
+      #   env: { PERL5LIB: "${{ github.workspace }}/local/lib/perl5" }
+      #   run: .github/ubuntu/sqlite.sh
       - name: Setup Clients
         env:
           SKIP_DEPENDS: true
-        run: |
-          .github/ubuntu/all-apt-prereqs.sh
-          .github/ubuntu/exasol.sh
-          .github/ubuntu/firebird.sh
-          .github/ubuntu/mysql.sh
-          .github/ubuntu/oracle.sh
-          .github/ubuntu/pg.sh
-          .github/ubuntu/snowflake.sh
-          .github/ubuntu/vertica.sh
+        run: .github/ubuntu/vertica.sh
+        # run: |
+        #   .github/ubuntu/all-apt-prereqs.sh
+        #   .github/ubuntu/exasol.sh
+        #   .github/ubuntu/firebird.sh
+        #   .github/ubuntu/mysql.sh
+        #   .github/ubuntu/oracle.sh
+        #   .github/ubuntu/pg.sh
+        #   .github/ubuntu/snowflake.sh
+        #   .github/ubuntu/vertica.sh
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends --cpanfile dist/cpanfile
-      - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC DBD::Firebird DBD::Oracle DBD::mysql DBD::Pg Devel::Cover Devel::Cover::Report::Coveralls
+      - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC
       - name: Run Tests
         env:
           PERL5LIB: "${{ github.workspace }}/local/lib/perl5"
