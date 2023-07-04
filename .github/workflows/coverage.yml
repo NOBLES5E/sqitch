@@ -44,8 +44,8 @@ jobs:
         image: vertica/vertica-ce:latest
         ports: [ 5433 ]
     steps:
-      - name: Start CockroachDB
-        run: docker run -d -p 26257:26257 cockroachdb/cockroach:latest start-single-node --insecure
+      # - name: Start CockroachDB
+      #   run: docker run -d -p 26257:26257 cockroachdb/cockroach:latest start-single-node --insecure
       - uses: actions/checkout@v3
       - name: Setup Perl
         id: perl
@@ -70,7 +70,7 @@ jobs:
           .github/ubuntu/oracle.sh
           .github/ubuntu/pg.sh
           .github/ubuntu/vertica.sh
-        #   .github/ubuntu/snowflake.sh
+          .github/ubuntu/snowflake.sh
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends --cpanfile dist/cpanfile
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC Devel::Cover
       - name: Run Tests
