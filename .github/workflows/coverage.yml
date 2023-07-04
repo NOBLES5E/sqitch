@@ -69,10 +69,10 @@ jobs:
           .github/ubuntu/mysql.sh
           .github/ubuntu/oracle.sh
           .github/ubuntu/pg.sh
-          .github/ubuntu/vertica.sh
           .github/ubuntu/snowflake.sh
+          .github/ubuntu/vertica.sh
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends --cpanfile dist/cpanfile
-      - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC Devel::Cover
+      - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC DBD::Firebird DBD::Oracle DBD::mysql DBD::Pg Devel::Cover Devel::Cover::Report::Coveralls
       - name: Run Tests
         env:
           PERL5LIB: "${{ github.workspace }}/local/lib/perl5"
