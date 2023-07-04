@@ -65,11 +65,11 @@ jobs:
         run: |
           .github/ubuntu/all-apt-prereqs.sh
           .github/ubuntu/exasol.sh
-          .github/ubuntu/pg.sh
-          .github/ubuntu/vertica.sh
           .github/ubuntu/firebird.sh
           .github/ubuntu/mysql.sh
           .github/ubuntu/oracle.sh
+          .github/ubuntu/pg.sh
+          .github/ubuntu/vertica.sh
         #   .github/ubuntu/snowflake.sh
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends --cpanfile dist/cpanfile
       - run: cpm install --verbose --show-build-log-on-failure --no-test --with-recommends DBI DBD::ODBC Devel::Cover
