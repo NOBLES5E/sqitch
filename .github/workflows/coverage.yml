@@ -13,10 +13,10 @@ jobs:
     name: 📈 Coverage
     runs-on: ubuntu-latest
     services:
-      # exasol:
-      #   image: exasol/docker-db:latest
-      #   ports: [ 8563 ]
-      #   options: --privileged
+      exasol:
+        image: exasol/docker-db:latest
+        ports: [ 8563 ]
+        options: --privileged
       # firebird:
       #   image: jacobalberty/firebird:latest
       #   ports: [ 3050 ]
@@ -66,7 +66,7 @@ jobs:
           .github/ubuntu/all-apt-prereqs.sh
           .github/ubuntu/pg.sh
           .github/ubuntu/vertica.sh
-        #   .github/ubuntu/exasol.sh
+          .github/ubuntu/exasol.sh
         #   .github/ubuntu/firebird.sh
         #   .github/ubuntu/mysql.sh
         #   .github/ubuntu/oracle.sh
